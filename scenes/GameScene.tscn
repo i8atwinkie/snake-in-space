@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://dhqtiio6c2m0r" path="res://scenes/player/segment_controller.gd" id="2_pynjx"]
 [ext_resource type="PackedScene" uid="uid://c6cnx12gwbmml" path="res://scenes/player/PlayerSegment.tscn" id="3_vijgj"]
 [ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/DrawCircle.gd" id="4_j40tv"]
-[ext_resource type="Script" uid="uid://vtlf3i4bcbcc" path="res://components/seek.gd" id="5_6pl24"]
 [ext_resource type="Script" uid="uid://d4nxxxgfwwoxa" path="res://components/hitbox.gd" id="6_w22tq"]
 [ext_resource type="Script" uid="uid://4dljeppkia0f" path="res://components/hurtbox.gd" id="7_e8rlm"]
 [ext_resource type="Script" uid="uid://c07mti8554a3y" path="res://components/hitpoints.gd" id="8_qitmq"]
+[ext_resource type="Script" uid="uid://co56ed6b0ih45" path="res://scenes/draw_vector.gd" id="8_vijgj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f24su"]
 
@@ -21,13 +21,12 @@
 position = Vector2(362, 382)
 script = ExtResource("1_vijgj")
 
+[node name="DrawVector" type="Node2D" parent="Player"]
+script = ExtResource("8_vijgj")
+
 [node name="Segments" type="Node2D" parent="Player"]
 script = ExtResource("2_pynjx")
 segment_scene = ExtResource("3_vijgj")
-
-[node name="Seek" type="Node" parent="Player" node_paths=PackedStringArray("actor_node")]
-script = ExtResource("5_6pl24")
-actor_node = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_f24su")

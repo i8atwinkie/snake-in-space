@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-@onready var seek: Seek = $Seek
 @onready var segment_controller = $Segments
+@onready var draw_vector = $DrawVector
 
 @export var base_speed = 200
-@export var acceleration = 2
+@export var turn_speed = TAU
 
 var speed = base_speed
 var strike_location: Vector2
@@ -34,6 +34,8 @@ func _physics_process(delta: float) -> void:
 			windup(delta)
 		States.STRIKE:
 			strike(delta)
+	
+	draw_vector.vector = velocity / 2
 
 func enter_movement_state() -> void:
 	state = States.MOVEMENT
@@ -45,12 +47,14 @@ func movement(delta) -> void:
 	else:
 		speed = base_speed
 	
-	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var desired_velocity = input_vector * speed
+	#var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_axis = Input.get_axis("ui_left", "ui_right")
+	var angle = velocity.angle()
+	angle += input_axis * turn_speed * delta
 	
-	seek.target = desired_velocity
-	seek.ratio = 1
-	seek.seek(delta)
+	velocity = Vector2.from_angle(angle).normalized() * speed
+	
+	move_and_slide()
 	
 	if Input.is_action_just_pressed("ui_attack"):
 		enter_windup_state()
@@ -72,6 +76,6 @@ func enter_strike_state():
 func strike(delta) -> void:
 	current_strike_time += delta
 	if current_strike_time >= strike_duration:
-		velocity = Vector2.ZERO
+		velocity = velocity.normalized() * speed
 		enter_movement_state()
 	move_and_slide()
