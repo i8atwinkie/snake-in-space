@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://bb5q7rtcn5u40"]
+
+[ext_resource type="Script" uid="uid://ckec81pnlu2bk" path="res://scenes/player/player.gd" id="1_vijgj"]
+[ext_resource type="Script" uid="uid://dhqtiio6c2m0r" path="res://scenes/player/segment_controller.gd" id="2_pynjx"]
+[ext_resource type="PackedScene" uid="uid://c6cnx12gwbmml" path="res://scenes/player/PlayerSegment.tscn" id="3_vijgj"]
+[ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/DrawCircle.gd" id="4_j40tv"]
+[ext_resource type="Script" uid="uid://vtlf3i4bcbcc" path="res://components/seek.gd" id="5_6pl24"]
+[ext_resource type="Script" uid="uid://d4nxxxgfwwoxa" path="res://components/hitbox.gd" id="6_w22tq"]
+[ext_resource type="Script" uid="uid://4dljeppkia0f" path="res://components/hurtbox.gd" id="7_e8rlm"]
+[ext_resource type="Script" uid="uid://c07mti8554a3y" path="res://components/hitpoints.gd" id="8_qitmq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f24su"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kil2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5cvvu"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(362, 382)
+script = ExtResource("1_vijgj")
+
+[node name="Segments" type="Node2D" parent="Player"]
+script = ExtResource("2_pynjx")
+segment_scene = ExtResource("3_vijgj")
+
+[node name="Seek" type="Node" parent="Player" node_paths=PackedStringArray("actor_node")]
+script = ExtResource("5_6pl24")
+actor_node = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_f24su")
+
+[node name="Circle" type="Node2D" parent="Player"]
+script = ExtResource("4_j40tv")
+
+[node name="Hitbox" type="Area2D" parent="Player"]
+process_mode = 4
+visible = false
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("6_w22tq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitbox"]
+shape = SubResource("CircleShape2D_1kil2")
+debug_color = Color(0.9999381, 0, 0.11174735, 0.41960785)
+
+[node name="Hurtbox" type="Area2D" parent="Player"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("7_e8rlm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hurtbox"]
+shape = SubResource("CircleShape2D_1kil2")
+
+[node name="Hitpoints" type="Node" parent="Player"]
+script = ExtResource("8_qitmq")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(567, 259)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Circle" type="Node2D" parent="Hitbox"]
+script = ExtResource("4_j40tv")
+metadata/_custom_type_script = "uid://bnjax6vkgcxff"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_5cvvu")
+debug_color = Color(0.99352473, 0, 0.2431364, 0.41960785)
+
+[connection signal="area_entered" from="Player/Hurtbox" to="Player/Hitpoints" method="_on_hurtbox_area_entered"]

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var seek: Seek = $Seek
+@onready var segment_controller = $Segments
 
 @export var base_speed = 200
 @export var acceleration = 2
@@ -13,6 +14,17 @@ var strike_length = 150
 
 enum States {MOVEMENT, WINDUP, STRIKE}
 var state: States = States.MOVEMENT
+
+func _ready() -> void:
+	for i in range(0, 10):
+		segment_controller.add_segment()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_EQUAL:
+			segment_controller.add_segment()
+		if event.pressed and event.keycode == KEY_MINUS:
+			segment_controller.remove_segment()
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -55,7 +67,6 @@ func enter_strike_state():
 	state = States.STRIKE
 	current_strike_time = 0
 	strike_location = global_position.direction_to(get_global_mouse_position()) * strike_length
-	print(strike_location)
 	velocity = strike_location / strike_duration
 
 func strike(delta) -> void:
