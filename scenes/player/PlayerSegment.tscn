@@ -11,3 +11,4 @@ actor = NodePath("..")
 
 [node name="Circle" type="Node2D" parent="."]
 script = ExtResource("2_2t3nb")
+radius = 5.0
