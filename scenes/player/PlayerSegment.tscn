@@ -1,13 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6cnx12gwbmml"]
+[gd_scene load_steps=2 format=3 uid="uid://c6cnx12gwbmml"]
 
-[ext_resource type="Script" uid="uid://cd5aiju8p7vqg" path="res://components/inverse_kinematics.gd" id="1_b4uaq"]
 [ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/DrawCircle.gd" id="2_2t3nb"]
 
 [node name="Segment" type="Node2D"]
-
-[node name="InverseKinematics" type="Node" parent="." node_paths=PackedStringArray("actor")]
-script = ExtResource("1_b4uaq")
-actor = NodePath("..")
 
 [node name="Circle" type="Node2D" parent="."]
 script = ExtResource("2_2t3nb")
