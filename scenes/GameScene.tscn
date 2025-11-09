@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bb5q7rtcn5u40"]
+[gd_scene load_steps=19 format=3 uid="uid://bb5q7rtcn5u40"]
 
 [ext_resource type="Script" uid="uid://ckec81pnlu2bk" path="res://scenes/player/player.gd" id="1_vijgj"]
 [ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://resources/spr_stars01.png" id="1_yrli1"]
@@ -9,6 +9,34 @@
 [ext_resource type="Script" uid="uid://d4nxxxgfwwoxa" path="res://components/hitbox.gd" id="6_w22tq"]
 [ext_resource type="Script" uid="uid://4dljeppkia0f" path="res://components/hurtbox.gd" id="7_e8rlm"]
 [ext_resource type="Script" uid="uid://c07mti8554a3y" path="res://components/hitpoints.gd" id="8_qitmq"]
+
+[sub_resource type="Gradient" id="Gradient_yrli1"]
+colors = PackedColorArray(0, 0, 0, 0, 0.9098039, 0.60784316, 0.5882353, 0.1254902)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j40tv"]
+noise_type = 2
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6pl24"]
+width = 2560
+height = 2560
+noise = SubResource("FastNoiseLite_j40tv")
+color_ramp = SubResource("Gradient_yrli1")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_pynjx"]
+colors = PackedColorArray(0, 0, 0, 0, 0.30980393, 0, 0.49019608, 0.2509804)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pynjx"]
+noise_type = 2
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yrli1"]
+width = 2560
+height = 2560
+noise = SubResource("FastNoiseLite_pynjx")
+color_ramp = SubResource("Gradient_pynjx")
+seamless = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f24su"]
 
@@ -37,12 +65,25 @@ repeat_size = Vector2(2560, 2560)
 [node name="Sprite2D" type="Sprite2D" parent="Background/StarsFar"]
 texture = ExtResource("1_yrli1")
 
+[node name="TextureRect" type="TextureRect" parent="Background/StarsFar"]
+offset_right = 2560.0
+offset_bottom = 2560.0
+texture = SubResource("NoiseTexture2D_6pl24")
+
 [node name="StarsClose" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(2560, 2560)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/StarsClose"]
 texture = ExtResource("2_j40tv")
+
+[node name="Foreground" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(2560, 2560)
+
+[node name="TextureRect" type="TextureRect" parent="Background/Foreground"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("NoiseTexture2D_yrli1")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(362, 382)
