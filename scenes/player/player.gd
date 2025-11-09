@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var segment_controller = $Segments
-@onready var draw_vector = $DrawVector
+#@onready var draw_vector = $DrawVector
 
 @export var base_speed = 200
 @export var turn_speed = TAU
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		States.STRIKE:
 			strike(delta)
 	
-	draw_vector.vector = velocity / 2
+	#draw_vector.vector = velocity / 2
 
 func enter_movement_state() -> void:
 	state = States.MOVEMENT
@@ -63,7 +63,7 @@ func enter_windup_state() -> void:
 	state = States.WINDUP
 	velocity = Vector2.ZERO
 
-func windup(delta) -> void:
+func windup(_delta) -> void:
 	if Input.is_action_just_released("ui_attack"):
 		enter_strike_state()
 

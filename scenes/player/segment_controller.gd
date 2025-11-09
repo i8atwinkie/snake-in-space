@@ -1,28 +1,17 @@
 extends Node2D
 
-@onready var parent = get_parent() 
+@onready var _children = get_children()
 
 @export var segment_scene: PackedScene
+@export var segment_length: float = 20
 
-@export var segment_interval: float = 5
+var snake_path: SnakePath = SnakePath.new()
 
-var snake_path_points: Array[Vector2] = []
-
-var _children: Array[Node]
-
-func _ready() -> void:
-	_children = get_children()
-
-func _physics_process(delta: float) -> void:
-	snake_path_points.push_front(parent.global_position)
-	if snake_path_points.size() > 100:
-		snake_path_points.pop_back()
+func _physics_process(_delta: float) -> void:
+	snake_path.push_front(global_position)
 	
 	for i in range(_children.size()):
-		if snake_path_points.size() > (i + 1) * 5:
-			_children[i].global_position = snake_path_points[(i + 1) * 5]
-		elif snake_path_points.size() > 0:
-			_children[i].global_position = snake_path_points.back()
+		_children[i].global_position = snake_path.get_position_at_distance(i * segment_length)
 
 func add_segment() -> void:
 	var new_segment = segment_scene.instantiate()

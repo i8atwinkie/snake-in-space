@@ -27,7 +27,6 @@ shape = SubResource("CircleShape2D_f24su")
 script = ExtResource("4_j40tv")
 
 [node name="Segments" type="Node2D" parent="Player"]
-top_level = true
 script = ExtResource("2_pynjx")
 segment_scene = ExtResource("3_vijgj")
 
