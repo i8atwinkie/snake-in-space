@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bb5q7rtcn5u40"]
+[gd_scene load_steps=13 format=3 uid="uid://bb5q7rtcn5u40"]
 
 [ext_resource type="Script" uid="uid://ckec81pnlu2bk" path="res://scenes/player/player.gd" id="1_vijgj"]
+[ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://resources/spr_stars01.png" id="1_yrli1"]
+[ext_resource type="Texture2D" uid="uid://babukqfb0pncj" path="res://resources/spr_stars02.png" id="2_j40tv"]
 [ext_resource type="Script" uid="uid://dhqtiio6c2m0r" path="res://scenes/player/segment_controller.gd" id="2_pynjx"]
 [ext_resource type="PackedScene" uid="uid://c6cnx12gwbmml" path="res://scenes/player/PlayerSegment.tscn" id="3_vijgj"]
 [ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/DrawCircle.gd" id="4_j40tv"]
@@ -14,11 +16,40 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5cvvu"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Background" type="Parallax2D" parent="Background"]
+scroll_offset = Vector2(-325, -158)
+repeat_size = Vector2(2560, 2560)
+
+[node name="ColorRect" type="ColorRect" parent="Background/Background"]
+offset_right = 2560.0
+offset_bottom = 2560.0
+color = Color(0, 0, 0, 1)
+
+[node name="StarsFar" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(85, 174)
+repeat_size = Vector2(2560, 2560)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/StarsFar"]
+texture = ExtResource("1_yrli1")
+
+[node name="StarsClose" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(2560, 2560)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/StarsClose"]
+texture = ExtResource("2_j40tv")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(362, 382)
 script = ExtResource("1_vijgj")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_f24su")
