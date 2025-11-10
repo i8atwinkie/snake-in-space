@@ -1,6 +1,6 @@
 class_name Hitpoints extends Node
 
-signal hitpoints_reached_zero
+signal hitpoints_depleted
 signal damaged
 signal healed
 
@@ -15,7 +15,7 @@ signal healed
 			if current_hitpoints > max_hitpoints:
 				current_hitpoints = max_hitpoints
 		if current_hitpoints <= 0:
-			emit_signal("hitpoints_reached_zero")
+			emit_signal("hitpoints_depleted")
 
 func damage(amount) -> bool:
 	if vulnerable:

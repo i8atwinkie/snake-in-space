@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://td8vdaehkavb"]
+
+[ext_resource type="Script" uid="uid://cvb8vh5o17872" path="res://components/velocity.gd" id="1_010tf"]
+[ext_resource type="Script" uid="uid://cgojk8hi5y0l8" path="res://scenes/enemies/asteroid.gd" id="1_i54fv"]
+[ext_resource type="Script" uid="uid://c07mti8554a3y" path="res://components/hitpoints.gd" id="1_m1xhk"]
+[ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/draw_circle.gd" id="1_q55dv"]
+[ext_resource type="Script" uid="uid://d4nxxxgfwwoxa" path="res://components/hitbox.gd" id="1_xg3hh"]
+[ext_resource type="Script" uid="uid://4dljeppkia0f" path="res://components/hurtbox.gd" id="2_q55dv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i54fv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vdsd2"]
+
+[node name="Asteroid" type="Node2D"]
+script = ExtResource("1_i54fv")
+
+[node name="Velocity" type="Node" parent="."]
+script = ExtResource("1_010tf")
+metadata/_custom_type_script = "uid://cvb8vh5o17872"
+
+[node name="DrawCircle" type="Node2D" parent="."]
+script = ExtResource("1_q55dv")
+fill_color = Color(0.74978, 0.74978, 0.74977994, 1)
+outline_color = Color(0.55, 0.39600003, 0.43963334, 1)
+metadata/_custom_type_script = "uid://bnjax6vkgcxff"
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("1_xg3hh")
+metadata/_custom_type_script = "uid://d4nxxxgfwwoxa"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_i54fv")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("2_q55dv")
+metadata/_custom_type_script = "uid://4dljeppkia0f"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_vdsd2")
+
+[node name="Hitpoints" type="Node" parent="."]
+script = ExtResource("1_m1xhk")
+
+[connection signal="hurt" from="Hurtbox" to="Hitpoints" method="damage"]
+[connection signal="hitpoints_depleted" from="Hitpoints" to="." method="_on_hitpoints_hitpoints_depleted"]

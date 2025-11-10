@@ -1,11 +1,11 @@
 [gd_scene load_steps=19 format=3 uid="uid://bb5q7rtcn5u40"]
 
 [ext_resource type="Script" uid="uid://ckec81pnlu2bk" path="res://scenes/player/player.gd" id="1_vijgj"]
-[ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://resources/spr_stars01.png" id="1_yrli1"]
-[ext_resource type="Texture2D" uid="uid://babukqfb0pncj" path="res://resources/spr_stars02.png" id="2_j40tv"]
+[ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://assets/spr_stars01.png" id="1_yrli1"]
+[ext_resource type="Texture2D" uid="uid://babukqfb0pncj" path="res://assets/spr_stars02.png" id="2_j40tv"]
 [ext_resource type="Script" uid="uid://dhqtiio6c2m0r" path="res://scenes/player/segment_controller.gd" id="2_pynjx"]
 [ext_resource type="PackedScene" uid="uid://c6cnx12gwbmml" path="res://scenes/player/PlayerSegment.tscn" id="3_vijgj"]
-[ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/DrawCircle.gd" id="4_j40tv"]
+[ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/draw_circle.gd" id="4_j40tv"]
 [ext_resource type="Script" uid="uid://d4nxxxgfwwoxa" path="res://components/hitbox.gd" id="6_w22tq"]
 [ext_resource type="Script" uid="uid://4dljeppkia0f" path="res://components/hurtbox.gd" id="7_e8rlm"]
 [ext_resource type="Script" uid="uid://c07mti8554a3y" path="res://components/hitpoints.gd" id="8_qitmq"]
@@ -108,6 +108,8 @@ visible = false
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("6_w22tq")
+damage = null
+faction = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitbox"]
 shape = SubResource("CircleShape2D_1kil2")
