@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bb5q7rtcn5u40"]
+[gd_scene load_steps=13 format=3 uid="uid://bb5q7rtcn5u40"]
 
 [ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://assets/spr_stars01.png" id="1_yrli1"]
 [ext_resource type="Texture2D" uid="uid://babukqfb0pncj" path="res://assets/spr_stars02.png" id="2_j40tv"]
 [ext_resource type="PackedScene" uid="uid://cc2mn5vgf6mn2" path="res://scenes/player/player.tscn" id="3_18ig4"]
+[ext_resource type="Script" uid="uid://b68xtkdy16iwu" path="res://scenes/enemies/spawner.gd" id="5_7s5hy"]
+[ext_resource type="Script" uid="uid://b2e55r06qu083" path="res://scenes/random_position_outside_view.gd" id="5_xs4ih"]
 [ext_resource type="PackedScene" uid="uid://td8vdaehkavb" path="res://scenes/enemies/Asteroid.tscn" id="10_yrli1"]
 
 [sub_resource type="Gradient" id="Gradient_yrli1"]
@@ -79,3 +81,17 @@ position = Vector2(362, 382)
 
 [node name="Asteroid" parent="." instance=ExtResource("10_yrli1")]
 position = Vector2(597, 353)
+
+[node name="AsteroidSpawner" type="Node2D" parent="."]
+script = ExtResource("5_xs4ih")
+
+[node name="Spawner" type="Node2D" parent="AsteroidSpawner"]
+position = Vector2(457, 245)
+script = ExtResource("5_7s5hy")
+scene = ExtResource("10_yrli1")
+
+[node name="Timer" type="Timer" parent="AsteroidSpawner/Spawner"]
+autostart = true
+
+[connection signal="timeout" from="AsteroidSpawner/Spawner/Timer" to="AsteroidSpawner/Spawner" method="spawn"]
+[connection signal="timeout" from="AsteroidSpawner/Spawner/Timer" to="AsteroidSpawner" method="randomize_position"]
