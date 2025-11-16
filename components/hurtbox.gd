@@ -7,6 +7,7 @@ signal hurt(damage: int)
 func _ready() -> void:
 	connect("area_entered", func(area: Area2D) -> void:
 		var hitbox = area as Hitbox
-		if hitbox.faction != faction:
-			emit_signal("hurt", hitbox.damage)
+		if hitbox != null:
+			if hitbox.faction != faction:
+				emit_signal("hurt", hitbox.damage)
 	)

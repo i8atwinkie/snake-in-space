@@ -1,14 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bb5q7rtcn5u40"]
+[gd_scene load_steps=11 format=3 uid="uid://bb5q7rtcn5u40"]
 
-[ext_resource type="Script" uid="uid://ckec81pnlu2bk" path="res://scenes/player/player.gd" id="1_vijgj"]
 [ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://assets/spr_stars01.png" id="1_yrli1"]
 [ext_resource type="Texture2D" uid="uid://babukqfb0pncj" path="res://assets/spr_stars02.png" id="2_j40tv"]
-[ext_resource type="Script" uid="uid://dhqtiio6c2m0r" path="res://scenes/player/segment_controller.gd" id="2_pynjx"]
-[ext_resource type="PackedScene" uid="uid://c6cnx12gwbmml" path="res://scenes/player/PlayerSegment.tscn" id="3_vijgj"]
-[ext_resource type="Script" uid="uid://bnjax6vkgcxff" path="res://components/draw_circle.gd" id="4_j40tv"]
-[ext_resource type="Script" uid="uid://d4nxxxgfwwoxa" path="res://components/hitbox.gd" id="6_w22tq"]
-[ext_resource type="Script" uid="uid://4dljeppkia0f" path="res://components/hurtbox.gd" id="7_e8rlm"]
-[ext_resource type="Script" uid="uid://c07mti8554a3y" path="res://components/hitpoints.gd" id="8_qitmq"]
+[ext_resource type="PackedScene" uid="uid://cc2mn5vgf6mn2" path="res://scenes/player/player.tscn" id="3_18ig4"]
+[ext_resource type="PackedScene" uid="uid://td8vdaehkavb" path="res://scenes/enemies/Asteroid.tscn" id="10_yrli1"]
 
 [sub_resource type="Gradient" id="Gradient_yrli1"]
 colors = PackedColorArray(0, 0, 0, 0, 0.9098039, 0.60784316, 0.5882353, 0.1254902)
@@ -37,12 +32,6 @@ height = 2560
 noise = SubResource("FastNoiseLite_pynjx")
 color_ramp = SubResource("Gradient_pynjx")
 seamless = true
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_f24su"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1kil2"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5cvvu"]
 
 [node name="Game" type="Node2D"]
 
@@ -85,58 +74,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("NoiseTexture2D_yrli1")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" parent="." instance=ExtResource("3_18ig4")]
 position = Vector2(362, 382)
-script = ExtResource("1_vijgj")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position_smoothing_enabled = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_f24su")
-
-[node name="HeadSprite" type="Node2D" parent="Player"]
-script = ExtResource("4_j40tv")
-
-[node name="Segments" type="Node2D" parent="Player"]
-script = ExtResource("2_pynjx")
-segment_scene = ExtResource("3_vijgj")
-
-[node name="Hitbox" type="Area2D" parent="Player"]
-process_mode = 4
-visible = false
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("6_w22tq")
-damage = null
-faction = null
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitbox"]
-shape = SubResource("CircleShape2D_1kil2")
-debug_color = Color(0.9999381, 0, 0.11174735, 0.41960785)
-
-[node name="Hurtbox" type="Area2D" parent="Player"]
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("7_e8rlm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hurtbox"]
-shape = SubResource("CircleShape2D_1kil2")
-
-[node name="Hitpoints" type="Node" parent="Player"]
-script = ExtResource("8_qitmq")
-
-[node name="Hitbox" type="Area2D" parent="."]
-position = Vector2(567, 259)
-collision_layer = 4
-collision_mask = 2
-
-[node name="Circle" type="Node2D" parent="Hitbox"]
-script = ExtResource("4_j40tv")
-metadata/_custom_type_script = "uid://bnjax6vkgcxff"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_5cvvu")
-debug_color = Color(0.99352473, 0, 0.2431364, 0.41960785)
-
-[connection signal="area_entered" from="Player/Hurtbox" to="Player/Hitpoints" method="_on_hurtbox_area_entered"]
+[node name="Asteroid" parent="." instance=ExtResource("10_yrli1")]
+position = Vector2(597, 353)

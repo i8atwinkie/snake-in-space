@@ -17,21 +17,17 @@ signal healed
 		if current_hitpoints <= 0:
 			emit_signal("hitpoints_depleted")
 
-func damage(amount) -> bool:
+func damage(amount: int = 1) -> bool:
 	if vulnerable:
 		current_hitpoints -= amount
 		emit_signal("damaged", amount)
 		return true
 	return false
 
-func heal(amount) -> int:
+func heal(amount: int = 1) -> int:
 	var old_hitpoints = current_hitpoints
 	current_hitpoints += amount
 	if current_hitpoints > old_hitpoints:
 		emit_signal("healed", current_hitpoints - old_hitpoints)
 		return current_hitpoints - old_hitpoints
 	return 0
-
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	# damage(area.damage)
-	print("owie")

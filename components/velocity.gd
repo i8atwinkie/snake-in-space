@@ -4,5 +4,9 @@ class_name Velocity extends Node
 
 var velocity: Vector2 = Vector2.ZERO
 
+func _ready() -> void:
+	if actor_node == null:
+		actor_node = get_parent()
+
 func _physics_process(delta: float) -> void:
 	actor_node.position += velocity * delta
