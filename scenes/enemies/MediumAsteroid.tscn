@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://lg0vc63hlro3"]
+
+[ext_resource type="PackedScene" uid="uid://td8vdaehkavb" path="res://scenes/enemies/Asteroid.tscn" id="1_b2j37"]
+[ext_resource type="Script" uid="uid://b68xtkdy16iwu" path="res://scenes/enemies/spawner.gd" id="2_u15nj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2j37"]
+resource_local_to_scene = true
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u15nj"]
+resource_local_to_scene = true
+radius = 30.0
+
+[node name="MediumAsteroid" instance=ExtResource("1_b2j37")]
+
+[node name="DrawCircle" parent="." index="1"]
+radius = 30.0
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_b2j37")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_u15nj")
+
+[node name="Spawner" type="Node2D" parent="." index="5"]
+script = ExtResource("2_u15nj")
+scene = ExtResource("1_b2j37")
+metadata/_custom_type_script = "uid://b68xtkdy16iwu"
+
+[connection signal="hitpoints_depleted" from="Hitpoints" to="Spawner" method="spawn"]
