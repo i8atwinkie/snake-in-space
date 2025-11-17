@@ -3,10 +3,7 @@ extends Node2D
 @export var margin: float = 100
 
 func randomize_position() -> Vector2:
-	var bounds =get_viewport().get_visible_rect().grow(margin)
-	var camera = get_viewport().get_camera_2d()
-	print(camera)
-	if camera: bounds = camera.get_viewport_rect().grow(margin)
+	var bounds = (get_viewport_rect() * get_viewport_transform()).grow(margin)
 	var random_side = randf()
 	var random_x = 0
 	var random_y = 0
