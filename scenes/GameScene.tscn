@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb5q7rtcn5u40"]
+[gd_scene load_steps=13 format=3 uid="uid://bb5q7rtcn5u40"]
 
 [ext_resource type="Texture2D" uid="uid://dkgg18kwqgglj" path="res://assets/spr_stars01.png" id="1_yrli1"]
 [ext_resource type="Texture2D" uid="uid://babukqfb0pncj" path="res://assets/spr_stars02.png" id="2_j40tv"]
 [ext_resource type="PackedScene" uid="uid://cc2mn5vgf6mn2" path="res://scenes/player/player.tscn" id="3_18ig4"]
 [ext_resource type="Script" uid="uid://b68xtkdy16iwu" path="res://scenes/enemies/spawner.gd" id="5_7s5hy"]
 [ext_resource type="Script" uid="uid://b2e55r06qu083" path="res://scenes/random_position_outside_view.gd" id="5_xs4ih"]
-[ext_resource type="Texture2D" uid="uid://cobktjpp8dh0p" path="res://assets/icon.svg" id="6_6ytau"]
 [ext_resource type="PackedScene" uid="uid://td8vdaehkavb" path="res://scenes/enemies/Asteroid.tscn" id="10_yrli1"]
 
 [sub_resource type="Gradient" id="Gradient_yrli1"]
@@ -85,9 +84,6 @@ position = Vector2(597, 353)
 
 [node name="AsteroidSpawner" type="Node2D" parent="."]
 script = ExtResource("5_xs4ih")
-
-[node name="Sprite2D" type="Sprite2D" parent="AsteroidSpawner"]
-texture = ExtResource("6_6ytau")
 
 [node name="Spawner" type="Node2D" parent="AsteroidSpawner"]
 script = ExtResource("5_7s5hy")

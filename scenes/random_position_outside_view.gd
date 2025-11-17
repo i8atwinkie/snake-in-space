@@ -16,7 +16,5 @@ func randomize_position() -> Vector2:
 		random_x = randf_range(bounds.position.x, bounds.end.x)
 		random_y = [bounds.position.y, bounds.end.y].pick_random()
 	
-	print(bounds)
-	print(Vector2(random_x, random_y))
 	position = Vector2(random_x, random_y)
 	return position
