@@ -47,12 +47,19 @@ func movement(delta) -> void:
 	else:
 		speed = base_speed
 	
-	#var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var input_axis = Input.get_axis("ui_left", "ui_right")
-	var angle = velocity.angle()
-	angle += input_axis * turn_speed * delta
 	
-	velocity = Vector2.from_angle(angle).normalized() * speed
+	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if input_vector.length() > 0:
+		#var input_axis = Input.get_axis("ui_left", "ui_right")
+		var target_angle = input_vector.angle()
+		var angle = velocity.angle()
+		# Determine if we should go clockwise or counterclockwise
+		if abs(target_angle - angle) > PI:
+			if target_angle < 0: target_angle += TAU
+			else: angle += TAU
+		angle = move_toward(angle, target_angle, turn_speed * delta)
+
+		velocity = Vector2.from_angle(angle).normalized() * speed
 	
 	move_and_slide()
 	
